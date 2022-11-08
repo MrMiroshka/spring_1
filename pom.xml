@@ -11,7 +11,7 @@
 
     <name>spring_1 Maven Webapp</name>
     <!-- FIXME change it to the project's website -->
-    <url>http://www.example.com</url>
+    <!--  <url>http://www.example.com</url>-->
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -30,6 +30,12 @@
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>4.0.1</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.36</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
@@ -68,7 +74,7 @@
                     <server>TomcatServer</server>
                     <username>miroshka</username>
                     <password>miroshka</password>
-                    <path>/client2</path>
+                    <path>/spring1</path>
                     <update>true</update>
                 </configuration>
             </plugin>
