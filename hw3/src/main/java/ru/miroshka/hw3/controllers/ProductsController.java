@@ -1,6 +1,7 @@
 package ru.miroshka.hw3.controllers;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +14,8 @@ import java.util.List;
 
 @Controller
 public class ProductsController {
-    ProductRepository pR =new AnnotationConfigApplicationContext("ru.miroshka.hw3.model").getBean(ProductRepository.class);
+    @Autowired
+    ProductRepository pR;
 
 
 
