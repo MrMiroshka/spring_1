@@ -2,8 +2,7 @@ package ru.geekbrains.hw1.servlets;
 
 import ru.geekbrains.hw1.Product;
 import ru.geekbrains.hw1.modProducts;
-import com.sun.org.slf4j.internal.Logger;
-import com.sun.org.slf4j.internal.LoggerFactory;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

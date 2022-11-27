@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h1>Добавление продукта в список</h1>
+<form th:action="@{/getAllProducts}" th:object="${product}" method="post">
+    <p/>
+    Id: <input type="text" th:field="*{id}"/>
+    <br><p/>
+    Имя: <input type="text" th:field="*{title}"/>
+    <br><p/>
+    Цена: <input type="text" th:field="*{cost}"/>
+    <br><p/>
+    <button type="submit">Save</button>
+</form>
+
+<h1>Список продуктов</h1>
+<table>
+    <tr>
+        <th>Имя</th>
+        <th>Цена</th>
+        <th>id</th>
+    </tr>
+    <tr th:each="pr : ${productList}">
+        <td th:text="${pr.title}"/>
+        <td th:text="${pr.cost}"/>
+        <td th:text="${pr.id}"/>
+        <td>
+            <a th:href="@{http://localhost:8888/app/getProduct?id={id}(id=${pr.getId()})}">Link</a>
+        </td>
+    </tr>
+</table>
+<h1>Общее количество продуктов в списке = <span th:text="${productList.size()}"/></h1>
+</body>
+</html>
