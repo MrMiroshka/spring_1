@@ -35,4 +35,10 @@ public class ProductsController {
         this.productService.delProductById(id);
     }
 
+    @GetMapping("/addProduct")
+    public void addProduct(@RequestParam Long id,@RequestParam String name, @RequestParam Integer cost) {
+        this.productService.addProduct(id,name,cost);
+    }
+
+
 }

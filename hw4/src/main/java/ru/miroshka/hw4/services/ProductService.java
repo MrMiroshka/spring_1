@@ -27,4 +27,7 @@ public class ProductService {
         this.productRepository.delProductById(id);
     }
 
+    public void addProduct(Long id, String name, Integer cost) {
+        this.productRepository.addProduct(id, name, cost);
+    }
 }

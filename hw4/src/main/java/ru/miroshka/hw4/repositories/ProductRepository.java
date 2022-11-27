@@ -67,4 +67,13 @@ public class ProductRepository implements BeanPostProcessor {
     }
 
 
+    public void addProduct(Long id, String name, Integer cost) {
+        Product product = Product.builder().id(id).title(name).cost(cost).build();
+        if (null == this.products.stream()
+                .filter(p -> Objects.equals(product.getId(), p.getId()))
+                .findFirst()
+                .orElse(null)) {
+            this.products.add(product);
+        }
+    }
 }
