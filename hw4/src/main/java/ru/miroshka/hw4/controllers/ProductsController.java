@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.miroshka.hw4.data.Product;
 import ru.miroshka.hw4.services.ProductService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -15,10 +16,12 @@ public class ProductsController {
     private ProductService productService;
 
 
-    @GetMapping("/getProduct")
-    public String getProduct(Model model, @RequestParam long id) {
-        model.addAttribute("product", productService.getProduct(id));
-        return "product";
+    @GetMapping("/getProduct/{id}")
+    public List<Product> getProduct(Model model, @PathVariable Long id) {
+        //model.addAttribute("product", productService.getProduct(id));
+        List<Product> m = new ArrayList<>();
+        m.add(productService.getProduct(id));
+        return m;
     }
 
     @GetMapping("/getAllProducts")

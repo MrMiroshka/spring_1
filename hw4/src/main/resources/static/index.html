@@ -25,9 +25,15 @@
             <td>
                 <button class="btn btn-danger" ng-click="deleteProduct(p.id)">Удалить</button>
             </td>
+            <td>
+                <button class="btn btn-danger" ng-click="aboutProduct(p.id)">Подробнее</button>
+            </td>
         </tr>
         </tbody>
     </table>
+    <div id="div_return">
+        <button class="btn btn-danger" ng-click="returnProducts()" .hidden="true">Назад</button>
+    </div>
 </div>
 </body>
 </html>
