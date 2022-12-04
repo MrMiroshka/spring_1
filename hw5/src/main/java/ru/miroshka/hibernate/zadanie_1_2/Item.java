@@ -1,29 +1,18 @@
-package ru.miroshka.hibernate;
+package ru.miroshka.hibernate.zadanie_1_2;
 
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "product")
-public class Product {
+@Table(name = "items")
+public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-
-    @Column(name = "title")
+    @Column (name = "title")
     private String title;
-
-    @Column(name = "price")
-    private int price;
-
-
-    public Product() {
-    }
-
-    public Product(String title, int price) {
-        this.title = title;
-        this.price = price;
-    }
+    @Column(name ="price")
+    private  int price;
 
     public Long getId() {
         return id;
@@ -49,8 +38,17 @@ public class Product {
         this.price = price;
     }
 
+    public Item() {;
+    }
+
+    public Item(String title, int price) {
+        this.title = title;
+        this.price = price;
+    }
+
+
     @Override
     public String toString() {
-        return String.format("Product [id = %d, title = '%s', price = %d]",id,title,price);
+        return String.format("Item [id = %d, title = '%s', price = %d]",id,title,price);
     }
 }
