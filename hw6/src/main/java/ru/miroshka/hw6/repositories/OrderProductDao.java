@@ -23,7 +23,7 @@ public class OrderProductDao implements BeanPostProcessor {
     public List<Order> getCustomers(Long id) {
         Session session = sessionFactoryUtil.getSession();
         session.beginTransaction();
-        List<Order> customerFroItemDbRead3 = session.createQuery("SELECT i FROM Order i WHERE i.customer=:id", Order.class)
+        List<Order> customerFroItemDbRead3 = session.createQuery("SELECT i FROM Order i WHERE i.customer.id=:id", Order.class)
                 .setParameter("id",id)
                 .getResultList();
         System.out.println(customerFroItemDbRead3);
@@ -34,7 +34,7 @@ public class OrderProductDao implements BeanPostProcessor {
     public List<Order> getProducts(Long id) {
         Session session = sessionFactoryUtil.getSession();
         session.beginTransaction();
-        List<Order> productFroItemDbRead3 = session.createQuery("SELECT i FROM Order i WHERE i.product=:id", Order.class)
+        List<Order> productFroItemDbRead3 = session.createQuery("SELECT i FROM Order i WHERE i.product.id=:id", Order.class)
                 .setParameter("id",id)
                 .getResultList();
         System.out.println(productFroItemDbRead3);

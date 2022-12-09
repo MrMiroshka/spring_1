@@ -52,8 +52,8 @@ public class Order {
     public String toString() {
         return "Order{" +
                 "id=" + id +
-                ", customer=" + customer +
-                ", product=" + product +
+                ", customer=" + customer.toString() +
+                ", product=" + product.toString() +
                 '}';
     }
 }

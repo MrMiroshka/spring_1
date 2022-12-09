@@ -15,13 +15,13 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
-    public List<Customer> getProduct(Long id) {
+    public List<Customer> getCustomer(Long id) {
         List<Customer> m = new ArrayList<>();
         m.add(customerService.getCustomer(id));
         return m;
     }
 
-    public List<Customer> getAllProducts() {
+    public List<Customer> getAllCustomers() {
         return customerService.getCustomers();
     }
 
