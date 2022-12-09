@@ -2,6 +2,8 @@ package ru.miroshka.hw6.data;
 
 import jakarta.persistence.*;
 
+import java.time.OffsetDateTime;
+
 @Entity
 
 @Table(name = "order_product")
@@ -20,8 +22,36 @@ public class Order {
     @JoinColumn (name = "id_product")
     private Product product;
 
+    @Column(name = "cost")
+    private int cost;
+
+    @Column(name = "count")
+    private int count;
+
+    @Column(name = "time_order")
+    private OffsetDateTime dateTime;
 
     public Order() {
+    }
+
+    public int getCost() {
+        return cost;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public OffsetDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public void setCost(int cost) {
+        this.cost = cost;
     }
 
     public Long getId() {

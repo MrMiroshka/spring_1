@@ -28,12 +28,20 @@ public class OrderProductController {
     public List<Product> getProducts(Long id) {
 
         List<Product> listP= new ArrayList<Product>();
-        for (Order o:orderProductService.getCustomers(id)) {
+        for (Order o:orderProductService.getProducts(id)) {
             listP.add(o.getProduct());
         }
         return listP;
     }
 
 
+    public List<Order> getProductsFullInfo(Long id) {
+        return orderProductService.getProducts(id);
+    }
+
+
+    public List<Order> getCustomersFullInfo(Long id) {
+        return orderProductService.getCustomers(id);
+    }
 }
 
