@@ -17,7 +17,18 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    public Page<Product> getProducts(Integer page) {
+    public List<Product> getProducts() {
+        Iterable<Product> products = this.productRepository.findAll();
+
+        List<Product> productsList = new ArrayList<>();
+        for (Product p: products) {
+            productsList.add(p);
+        }
+        return productsList;
+    }
+
+
+    public Page<Product> getProductsPages(Integer page) {
         Iterable<Product> products = this.productRepository.findAll();
 
         List<Product> productsList = new ArrayList<>();

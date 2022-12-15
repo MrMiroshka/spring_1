@@ -36,7 +36,7 @@ public class ProductsController {
         this.productService.addProduct(name, cost);
     }
 
-    @GetMapping("/getAllProducts")
+    @GetMapping("/getAllProductsPages")
     public Page<Product> getProducts(
             @RequestParam(name = "p", defaultValue = "1") Integer page
     ) {
@@ -44,9 +44,16 @@ public class ProductsController {
             page = 1;
         }
        // return this.productService.getProducts();
-        return this.productService.getProducts(page);
+        return this.productService.getProductsPages(page);
     }
 
+
+
+
+    @GetMapping("/getAllProducts")
+    public List<Product> getProducts(){
+         return this.productService.getProducts();
+    }
 
     private List<Product> productsIterableToList(Iterable<Product> products) {
         List<Product> productsList = new ArrayList<>();
