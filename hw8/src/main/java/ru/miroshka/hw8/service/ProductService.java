@@ -1,5 +1,7 @@
 package ru.miroshka.hw8.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import ru.miroshka.hw8.data.Product;
 import ru.miroshka.hw8.repositories.ProductDao;
@@ -15,14 +17,16 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    public List<Product> getProducts() {
+    public Page<Product> getProducts(Integer page) {
         Iterable<Product> products = this.productRepository.findAll();
 
         List<Product> productsList = new ArrayList<>();
         for (Product p: products) {
             productsList.add(p);
         }
-        return productsList;
+
+        //return productsList;
+        return productRepository.findAll(PageRequest.of(page-1,10));
     }
 
     public List<Product> getProduct(Long id) {

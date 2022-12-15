@@ -2,12 +2,18 @@ angular.module('app_hw8', []).controller('indexController', function ($scope, $h
     const contextPath = 'http://localhost:8888/app';
 
     $scope.loadProducts = function () {
-        $http.get(contextPath + '/products/getAllProducts')
-            .then(function (response) {
-                $scope.ProductsList = response.data;
-                $scope.viewDiv($scope.ProductsList.length);
-            })
+        $http({
+            url: contextPath + '/products/getAllProducts',
+            method: 'GET',
+            params: {
+                name_part: $scope.name_part ? $scope.fi
+            }
+        }).then(function (response) {
+            $scope.ProductsList = response.data.content;
+        });
     };
+
+
 
     $scope.deleteProduct = function (productId) {
         $http.delete(contextPath + '/products/delete/' + productId)
