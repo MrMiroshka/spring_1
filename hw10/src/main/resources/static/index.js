@@ -3,7 +3,7 @@ angular.module('app_hw8', []).controller('indexController', function ($scope, $h
 
     $scope.loadProducts = function (pageIndex = 1) {
         $http({
-            url: contextPath+'/products',
+            url: contextPath + '/products',
             method: 'GET',
             params: {
                 min_cost: $scope.filter ? $scope.filter.min_cost : null,
@@ -17,19 +17,26 @@ angular.module('app_hw8', []).controller('indexController', function ($scope, $h
     };
 
     $scope.deleteProduct = function (productId) {
-        $http.delete(contextPath  +'/products/' + productId)
+        $http.delete(contextPath + '/products/' + productId)
             .then(function (response) {
                 $scope.loadProducts();
             })
     }
 
     $scope.aboutProduct = function (productId) {
-        $http.get(contextPath +'/products/' + productId)
+        $http.get(contextPath + '/products/' + productId)
             .then(function (response) {
                 $scope.ProductsList = response.data;
                 $scope.viewDiv($scope.ProductsList.length);
             })
-        console.log(contextPath + +'/products/' + productId)
+        console.log(contextPath + '/products/' + productId)
+    }
+
+    $scope.putBasket = function (productId) {
+        $http.get(contextPath + '/products/basket/put/' + productId)
+            .then(function (response) {
+                $scope.BasketList = response.data.content;
+            });
     }
 
     $scope.viewDiv = function (length) {
@@ -49,9 +56,9 @@ angular.module('app_hw8', []).controller('indexController', function ($scope, $h
 
     const form = document.getElementById('form');
 
-    $scope.createProductJson = function (){
-        $http.post(contextPath+'/products',$scope.newProductJson)
-            .then(function(response){
+    $scope.createProductJson = function () {
+        $http.post(contextPath + '/products', $scope.newProductJson)
+            .then(function (response) {
                 $scope.loadProducts();
             })
     }

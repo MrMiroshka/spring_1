@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import ru.miroshka.hw10.data.Basket;
 import ru.miroshka.hw10.data.Product;
 import ru.miroshka.hw10.exceptions.ResourceNotFoundException;
 import ru.miroshka.hw10.repositories.ProductDao;
@@ -18,6 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductsService {
     private final ProductDao productRepository;
+    private final Basket productBasket;
 
     public Page<Product> find(Integer minCost, Integer maxCost, String nameProduct, Integer page, Integer pageSize) {
         Specification<Product> spec = Specification.where(null);
@@ -53,10 +55,17 @@ public class ProductsService {
         return this.productRepository.save(product);
     }
 
+    public List<Product> putProductToBasket(Product product){
+        Product productPutToBasket = this.productRepository.findById(product.getId()).orElseThrow(() ->
+                new ResourceNotFoundException("Такой продукт не найден id - " + product.getId()));
+        productBasket.getListProducts().add(productPutToBasket);
+        return productBasket.getListProducts();
+    }
+
     @Transactional
     public void changeProduct(Product product) {
         Product productChange = this.productRepository.findById(product.getId()).orElseThrow(() ->
-                new ResourceNotFoundException("В базе нет продукта с таким id - " + product.getId()));
+                new ResourceNotFoundException("Такой продукт не найден id - " + product.getId()));
         if (product.getCost() != null && product.getCost() > 0) {
             productChange.setCost(product.getCost());
         }

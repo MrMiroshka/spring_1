@@ -55,12 +55,38 @@
             <td>
                 <button class="btn btn-danger" ng-click="aboutProduct(p.id)">Подробнее</button>
             </td>
+            <td>
+                <button class="btn btn-danger" ng-click="putBasket(p.id)">Добавить в корзину</button>
+            </td>
         </tr>
         </tbody>
     </table>
     <div id="div_return">
         <button class="btn btn-danger" ng-click="returnProducts()" .hidden="true">Назад</button>
     </div>
+
+    <h3>Список продуктов в корзине</h3>
+    <table class="table table-hover">
+        <tr>
+            <td>ID</td>
+            <td>Имя продукта</td>
+            <td>Цена за штуку</td>
+            <td>Изменение</td>
+        </tr>
+        <tbody>
+        <tr ng-repeat="p in BasketList">
+            <td>{{p.id}}</td>
+            <td>{{p.name}}</td>
+            <td>{{p.cost}}</td>
+            <td>
+                <button class="btn btn-danger" ng-click="deleteProductBasket(p.id)">Удалить</button>
+            </td>
+            <td>
+                <button class="btn btn-danger" ng-click="aboutProductBasket(p.id)">Подробнее</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>

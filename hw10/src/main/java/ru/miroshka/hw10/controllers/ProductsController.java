@@ -3,6 +3,7 @@ package ru.miroshka.hw10.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.miroshka.hw10.converters.ProductConverter;
@@ -48,6 +49,21 @@ public class ProductsController {
         productDto.setId(null);
         Product product = this.productsService.addProduct(productConverter.dtoToEntity(productDto));
         return productConverter.entityToDto(product);
+    }
+
+    @GetMapping("/basket/put/{id}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public Page<ProductDto>  putProductToBasket(@PathVariable Long id) {
+        List<Product> listProduct = this.productsService.putProductToBasket((this.productsService.findById(id)));
+        List<ProductDto> listProductDto = new ArrayList<>();
+        for (Product p: listProduct) {
+            listProductDto.add(productConverter.entityToDto(p));
+        }
+        return new PageImpl<ProductDto>(listProductDto);
+
+ /*       productDto.setId(null);
+        Product product = this.productsService.addProduct(productConverter.dtoToEntity(productDto));
+        return productConverter.entityToDto(product);*/
     }
 
     @PutMapping
