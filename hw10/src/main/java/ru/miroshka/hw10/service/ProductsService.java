@@ -48,6 +48,11 @@ public class ProductsService {
 
     public void delProductById(Long id) {
         this.productRepository.deleteById(id);
+        this.productBasket.deleteByIdAll(id);
+    }
+
+    public void delProductBasketById(Long id) {
+        this.productBasket.deleteById(id);
     }
 
 
@@ -59,6 +64,10 @@ public class ProductsService {
         Product productPutToBasket = this.productRepository.findById(product.getId()).orElseThrow(() ->
                 new ResourceNotFoundException("Такой продукт не найден id - " + product.getId()));
         productBasket.getListProducts().add(productPutToBasket);
+        return productBasket.getListProducts();
+    }
+
+    public List<Product> getProductsFromBasket(){
         return productBasket.getListProducts();
     }
 

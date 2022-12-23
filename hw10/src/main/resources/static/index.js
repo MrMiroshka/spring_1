@@ -16,10 +16,20 @@ angular.module('app_hw8', []).controller('indexController', function ($scope, $h
         });
     };
 
+    $scope.loadProductsBasket = function (pageIndex = 1) {
+        $http({
+            url: contextPath + '/products/basket/',
+            method: 'GET',
+        }).then(function (response) {
+            $scope.BasketList = response.data.content;
+        });
+    };
+
     $scope.deleteProduct = function (productId) {
         $http.delete(contextPath + '/products/' + productId)
             .then(function (response) {
                 $scope.loadProducts();
+                $scope.loadProductsBasket();
             })
     }
 
@@ -33,10 +43,19 @@ angular.module('app_hw8', []).controller('indexController', function ($scope, $h
     }
 
     $scope.putBasket = function (productId) {
-        $http.get(contextPath + '/products/basket/put/' + productId)
+        $http.get(contextPath + '/products/basket/' + productId)
             .then(function (response) {
                 $scope.BasketList = response.data.content;
             });
+    }
+
+
+    $scope.deleteProductBasket = function (productId) {
+        $http.delete(contextPath + '/products/basket/' + productId)
+            .then(function (response) {
+                $scope.loadProducts();
+                $scope.loadProductsBasket();
+            })
     }
 
     $scope.viewDiv = function (length) {
@@ -53,6 +72,7 @@ angular.module('app_hw8', []).controller('indexController', function ($scope, $h
     }
 
     $scope.loadProducts();
+    $scope.loadProductsBasket();
 
     const form = document.getElementById('form');
 

@@ -41,6 +41,10 @@ public class ProductsController {
         this.productsService.delProductById(id);
     }
 
+    @DeleteMapping("/basket/{id}")
+    public void deleteProductBasket(@PathVariable Long id) {
+        this.productsService.delProductBasketById(id);
+    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -51,7 +55,20 @@ public class ProductsController {
         return productConverter.entityToDto(product);
     }
 
-    @GetMapping("/basket/put/{id}")
+
+    @GetMapping("/basket/")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public Page<ProductDto> getProductBasket(
+    ) {
+        List<Product> listProduct = this.productsService.getProductsFromBasket();
+        List<ProductDto> listProductDto = new ArrayList<>();
+        for (Product p: listProduct) {
+            listProductDto.add(productConverter.entityToDto(p));
+        }
+        return new PageImpl<>(listProductDto);
+    }
+
+    @GetMapping("/basket/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public Page<ProductDto>  putProductToBasket(@PathVariable Long id) {
         List<Product> listProduct = this.productsService.putProductToBasket((this.productsService.findById(id)));
@@ -59,7 +76,7 @@ public class ProductsController {
         for (Product p: listProduct) {
             listProductDto.add(productConverter.entityToDto(p));
         }
-        return new PageImpl<ProductDto>(listProductDto);
+        return new PageImpl<>(listProductDto);
 
  /*       productDto.setId(null);
         Product product = this.productsService.addProduct(productConverter.dtoToEntity(productDto));
