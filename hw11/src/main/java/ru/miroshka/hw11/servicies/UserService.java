@@ -33,16 +33,29 @@ public class UserService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(), getAuthorities(user.getRoles(), user.getAuthorities()));
     }
 
-    private Collection<? extends GrantedAuthority> getAuthorities (Collection<Role> roles,Collection<Authority> authorities){
-        return mapAuthorityToAuthorities(authorities).;
+    private Collection<SimpleGrantedAuthority> getAuthorities (Collection<Role> roles,Collection<Authority> authorities){
+        Collection<SimpleGrantedAuthority> a = mapAuthorityToAuthorities(authorities);
+        Collection<SimpleGrantedAuthority> r = (mapRolesToAuthorities(roles));
+        if (a!=null && r == null){
+            return a;
+        }
+        if(r!=null && a == null){
+            return r;
+        }
+        if(r!=null && a != null){
+            r.addAll(a);
+            return r;
+        }
+
+        return null;
     }
 
-    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
+    private Collection<SimpleGrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
         return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
 
     }
 
-    private Collection<? extends GrantedAuthority> mapAuthorityToAuthorities(Collection<Authority> authorities) {
+    private Collection<SimpleGrantedAuthority> mapAuthorityToAuthorities(Collection<Authority> authorities) {
         return authorities.stream().map(authority -> new SimpleGrantedAuthority(authority.getName())).collect(Collectors.toList());
     }
 }
