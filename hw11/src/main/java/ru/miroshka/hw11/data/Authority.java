@@ -1,13 +1,12 @@
 package ru.miroshka.hw11.data;
-
 import javax.persistence.*;
 import lombok.Data;
 
 
 @Entity
 @Data
-@Table(name="roles")
-public class Role {
+@Table(name="authority")
+public class Authority {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,3 +16,4 @@ public class Role {
     @Column(name = "name")
     private  String name;
 }
+

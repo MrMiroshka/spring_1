@@ -1,8 +1,8 @@
 package ru.miroshka.hw11.data;
 
-import jakarta.persistence.*;
-import lombok.Data;
 
+import javax.persistence.*;
+import lombok.Data;
 import java.util.Collection;
 
 @Entity
@@ -28,4 +28,10 @@ public class User {
             joinColumns = @JoinColumn(name="user_id"),
             inverseJoinColumns = @JoinColumn(name="role_id"))
     private Collection<Role> roles;
+
+    @ManyToMany
+    @JoinTable(name = "users_authority",
+            joinColumns = @JoinColumn(name="user_id"),
+            inverseJoinColumns = @JoinColumn(name="authority_id"))
+    private Collection<Authority> authorities;
 }
