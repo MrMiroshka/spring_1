@@ -1,6 +1,7 @@
 package ru.miroshka.hw12.service;
 
-import jakarta.transaction.Transactional;
+//import jakarta.transaction.Transactional;
+import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

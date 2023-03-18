@@ -1,23 +1,23 @@
 package ru.miroshka.hw12.data;
 
-import jakarta.persistence.*;
+//import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+import javax.persistence.*;
 
 @Entity
-@Table(name = "product")
+@Table(name = "products")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_product")
+    @Column(name = "id")
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "title")
     private String name;
 
     @Column(name = "cost")

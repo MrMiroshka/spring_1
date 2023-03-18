@@ -1,4 +1,4 @@
-angular.module('app_hw8', []).controller('indexController', function ($scope, $http) {
+angular.module('app', ['ngStorage']).controller('indexController', function ($scope, $http, $localStorage) {
     const contextPath = 'http://localhost:8888/app/api/v1';
 
     $scope.loadProducts = function (pageIndex = 1) {
@@ -23,6 +23,61 @@ angular.module('app_hw8', []).controller('indexController', function ($scope, $h
         }).then(function (response) {
             $scope.BasketList = response.data.content;
         });
+    };
+
+    $scope.checkAuth = function (){
+        $http.get('http://localhost:8888/app/check_auth')
+            .then(function (response) {
+                alert(response.data.value)
+            })
+    };
+
+    $scope.tryToAuth = function () {
+        $http.post('http://localhost:8888/app/auth', $scope.user)
+            .then(function successCallback(response) {
+                if (response.data.token) {
+                    $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
+                    $localStorage.marketUser = {username: $scope.user.username, token: response.data.token};
+                    $scope.user.username = null;
+                    $scope.user.password = null;
+
+                }
+            }, function errorCallback(response) {
+            });
+    };
+
+    if($localStorage.marketUser){
+        try{
+            let jwt = $localStorage.marketUser.token;
+            let payload = JSON.parse(atob(jwt.split('.')[1]));
+            let currentTime = parseInt(new Date().getTime()/1000);
+            if (currentTime > payload.exp){
+                console.log("����� ���������!!!");
+                delete $localStorage.marketUser;
+                $http.defaults.headers.common.Authorization = '';
+            }
+        }catch (exp){
+
+        }
+        $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.marketUser.token;
+    }
+
+    $scope.tryToLogout = function(){
+        $scope.clearUser();
+        $scope.user = null;
+    };
+
+    $scope.clearUser = function (){
+        delete $localStorage.marketUser;
+        $http.defaults.headers.common.Authorization = '';
+    };
+
+    $scope.isUserLoggedIn = function (){
+        if ($localStorage.marketUser){
+            return true;
+        }else{
+            return false;
+        }
     };
 
     $scope.deleteProduct = function (productId) {
